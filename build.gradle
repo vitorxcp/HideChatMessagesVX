@@ -12,9 +12,9 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.5"
-group = "com.vitorxp.ChatPetLevelBlockVX"
-archivesBaseName = "ChatPetLevelBlockVX"
+version = "1.7"
+group = "com.vitorxp.HideChatMessagesVX"
+archivesBaseName = "HideChatMessagesVX"
 
 sourceCompatibility = targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'

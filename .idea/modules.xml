@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.api.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HideChatMessagesVX.iml" filepath="$PROJECT_DIR$/.idea/modules/HideChatMessagesVX.iml" />
     </modules>
   </component>
 </project>

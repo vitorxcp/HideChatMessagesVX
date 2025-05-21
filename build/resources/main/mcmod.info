@@ -1,14 +1,14 @@
 [
   {
-    "modid": "ChatPetLevelBlockVX",
-    "name": "ChatPetLevelBlockVX",
-    "description": "Apenas um simples mod que bloqueia as mensagens de pet nível máximo é inventário cheio.",
-    "version": "1.7",
+    "modid": "HideChatMessagesVX",
+    "name": "HideChatMessagesVX",
+    "description": "Um mod simples que bloqueia mensagens relacionadas a pets com nível máximo e inventário cheio, evitando spam desnecessário no chat.",
+    "version": "1.8",
     "mcversion": "1.8.9",
     "authorList": ["vitorxp"],
     "url": "https://discord.gg/2a2DDexaer",
     "updateUrl": "",
-    "credits": "",
+    "credits": "Desenvolvido por vitorxp",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []

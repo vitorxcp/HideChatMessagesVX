@@ -13,89 +13,107 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 
-@Mod(modid = "HideChatMessagesVX", name = "HideChatMessagesVX", version = "1.7")
+@Mod(modid = "HideChatMessagesVX", name = "HideChatMessagesVX", version = "1.8")
 public class HideChatMessagesVX {
 
-    public static boolean blockEnabledPet = true;
-    public static boolean blockEnabledInventory = true;
+    // Flags para ativar/desativar bloqueios
+    private static boolean blockPetMessages = true;
+    private static boolean blockInventoryMessages = true;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         System.out.println("HideChatMessagesVX carregado!");
-        ClientCommandHandler.instance.registerCommand(new TogglePetLevelBlockCommand());
-        ClientCommandHandler.instance.registerCommand(new ToggleInventoryFullBlockCommand());
+
+        // Registrar comandos para ativar/desativar os bloqueios
+        ClientCommandHandler.instance.registerCommand(new ToggleBlockCommand("petmaxblock",
+                "Bloqueia mensagens do pet nível máximo", () -> blockPetMessages, val -> blockPetMessages = val,
+                "PetChat", "bloqueio de mensagens do pet nível máximo"));
+
+        ClientCommandHandler.instance.registerCommand(new ToggleBlockCommand("inventoryblock",
+                "Bloqueia mensagens de inventário cheio", () -> blockInventoryMessages, val -> blockInventoryMessages = val,
+                "InventoryChat", "bloqueio de mensagens do inventário"));
 
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        String msg = event.message.getUnformattedText();
+        String rawMessage = event.message.getUnformattedText();
 
-        if(blockEnabledPet) {
-            if (msg.contains("Seu pet está nível máximo!")) {
+        if (!rawMessage.contains(":")) {
+            if (blockPetMessages && rawMessage.equals("Seu pet está nível máximo!")) {
                 event.setCanceled(true);
             }
-        }
-        if(blockEnabledInventory) {
-            if (msg.contains("Seu inventário está cheio!")) {
+
+            if (blockInventoryMessages && rawMessage.equals("Seu inventário está cheio!")) {
                 event.setCanceled(true);
             }
         }
     }
 
-    public static class TogglePetLevelBlockCommand implements ICommand {
+    // Classe genérica para comandos de toggle (ativar/desativar)
+    public static class ToggleBlockCommand implements ICommand {
+        private final String commandName;
+        private final String description;
+        private final BooleanSupplier getter;
+        private final Consumer<Boolean> setter;
+        private final String chatPrefix;
+        private final String messageDescription;
+
+        public ToggleBlockCommand(String commandName, String description, BooleanSupplier getter, Consumer<Boolean> setter, String chatPrefix, String messageDescription) {
+            this.commandName = commandName;
+            this.description = description;
+            this.getter = getter;
+            this.setter = setter;
+            this.chatPrefix = chatPrefix;
+            this.messageDescription = messageDescription;
+        }
 
         @Override
         public String getCommandName() {
-            return "petmaxblock";
+            return commandName;
         }
 
         @Override
         public String getCommandUsage(ICommandSender sender) {
-            return "/petmaxblock";
+            return "/" + commandName;
         }
-
 
         @Override
         public void processCommand(ICommandSender sender, String[] args) {
-            blockEnabledPet = !blockEnabledPet;
-            String status = blockEnabledPet ? "§aativado" : "§cdesativado";
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§bPetChat §8➜ §eBloqueio de mensagens do pet nível máximo " + status + "§e!"));
-        }
-
-        @Override public int compareTo(ICommand o) { return 0; }
-        @Override public List getCommandAliases() { return Collections.emptyList(); }
-        @Override public boolean canCommandSenderUseCommand(ICommandSender sender) { return true; }
-        @Override public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) { return null; }
-        @Override public boolean isUsernameIndex(String[] args, int index) { return false; }
-    }
-
-    public static class ToggleInventoryFullBlockCommand implements ICommand {
-
-        @Override
-        public String getCommandName() {
-            return "inventoryblock";
+            boolean newValue = !getter.getAsBoolean();
+            setter.accept(newValue);
+            String status = newValue ? "§aativado" : "§cdesativado";
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
+                    "§b" + chatPrefix + " §8➜ §eBloqueio de mensagens do " + messageDescription + " " + status + "§e!"));
         }
 
         @Override
-        public String getCommandUsage(ICommandSender sender) {
-            return "/inventoryblock";
+        public int compareTo(ICommand o) {
+            return commandName.compareTo(o.getCommandName());
         }
-
 
         @Override
-        public void processCommand(ICommandSender sender, String[] args) {
-            blockEnabledInventory = !blockEnabledInventory;
-            String status = blockEnabledInventory ? "§aativado" : "§cdesativado";
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§bInventoryChat §8➜ §eBloqueio de mensagens do inventário " + status + "§e!"));
+        public List<String> getCommandAliases() {
+            return Collections.emptyList();
         }
 
-        @Override public int compareTo(ICommand o) { return 0; }
-        @Override public List getCommandAliases() { return Collections.emptyList(); }
-        @Override public boolean canCommandSenderUseCommand(ICommandSender sender) { return true; }
-        @Override public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) { return null; }
-        @Override public boolean isUsernameIndex(String[] args, int index) { return false; }
+        @Override
+        public boolean canCommandSenderUseCommand(ICommandSender sender) {
+            return true;
+        }
+
+        @Override
+        public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public boolean isUsernameIndex(String[] args, int index) {
+            return false;
+        }
     }
 }

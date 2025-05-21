@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.api.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ChatPetLevelBlockVX.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HideChatMessagesVX.iml" filepath="$PROJECT_DIR$/.idea/modules/HideChatMessagesVX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.vitorxp.HideChatMessagesVX.ChatPetLevelBlockVX.api.iml" filepath="$PROJECT_DIR$/.idea/modules/com.vitorxp.HideChatMessagesVX.ChatPetLevelBlockVX.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.vitorxp.HideChatMessagesVX.ChatPetLevelBlockVX.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.vitorxp.HideChatMessagesVX.ChatPetLevelBlockVX.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.vitorxp.HideChatMessagesVX.ChatPetLevelBlockVX.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.vitorxp.HideChatMessagesVX.ChatPetLevelBlockVX.test.iml" />
     </modules>
   </component>
 </project>
